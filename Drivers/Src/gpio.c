@@ -71,6 +71,7 @@ void gpio_write(gpio_port_t port, gpio_pin_t pin, gpio_value_t value)
         gpio->BSRR = (1U << (pin + 16)); // reset bit
 }
 
+
 gpio_value_t gpio_read(gpio_port_t port , gpio_pin_t pin)
 {
 	GPIO_RegDef_t *gpio = gpio_get_port(port);
@@ -79,4 +80,25 @@ gpio_value_t gpio_read(gpio_port_t port , gpio_pin_t pin)
 	return ( gpio->IDR & ( 1U << pin )) ? GPIO_HIGH :  GPIO_LOW ;
 
 }
+
+void gpio_toggle(gpio_port_t port, gpio_pin_t pin)
+{
+    GPIO_RegDef_t *gpio = gpio_get_port(port);
+    if (!gpio) return;
+
+    /* Read current output state */
+    if (gpio->ODR & (1U << pin))
+    {
+        /* Pin is HIGH → reset it */
+        gpio->BSRR = (1U << (pin+16) );
+    }
+    else
+    {
+        /* Pin is LOW → set it */
+        gpio->BSRR = (1U << pin);
+    }
+}
+
+
+
 
