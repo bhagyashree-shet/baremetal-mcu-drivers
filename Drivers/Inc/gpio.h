@@ -45,5 +45,10 @@ typedef enum {
 void gpio_init(gpio_port_t port, gpio_pin_t pin, gpio_mode_t mode);
 void gpio_write(gpio_port_t port, gpio_pin_t pin, gpio_value_t value);
 gpio_value_t  gpio_read(gpio_port_t port , gpio_pin_t pin);
+
+/* TOGGLE FUNCTION */
+void gpio_toggle(gpio_port_t port, gpio_pin_t pin);
 #endif
+
+
 
