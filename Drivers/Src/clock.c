@@ -1,3 +1,9 @@
+/*
+ * clock.c
+ *
+ *  Created on: Jan 17, 2026
+ *      Author: bhagy
+ */
 
 #include "clock.h"
 #include <stdint.h>
@@ -7,6 +13,7 @@
 
 /* APB2 peripheral clock enable register */
 #define RCC_APB2ENR    (*(volatile uint32_t *)(RCC_BASE + 0x18))
+#define RCC_APB1ENR    (*(volatile uint32_t *)(RCC_BASE + 0x1C))
 
 void clock_enable(clk_id_t clk)
 {
@@ -27,6 +34,9 @@ void clock_enable(clk_id_t clk)
         case CLOCK_AFIO:
             RCC_APB2ENR |= (1U << 0);   // AFIOEN
             break;
+
+        case CLOCK_TIM2:
+        	RCC_APB1ENR |= (1U << 0); // TIM2EN
 
         default:
             break;
